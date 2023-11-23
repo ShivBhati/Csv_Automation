@@ -14,7 +14,7 @@ def dataframe(x):
 
 def compare(x, y,z):
     isnew = 'NO'
-    new_updated_file = os.path.join(z,"Atty_Email_Date.csv")
+    short_updated_file = os.path.join(z,"Atty_Email_Date.csv")
     ID = []
     TkprIndex = []   
     Initials = []   
@@ -27,47 +27,72 @@ def compare(x, y,z):
     Client = []
     Status = []
 
+### ID	Tkpr Index	Initials	FullName	First Name	Last Name	User	Email	Password	Client	Status
 
-    for index1, old in x.iterrows():
-        for index1, new in y.iterrows():
-            if old['ID'] == new['ID']:
-                if old['tkprStatus'] != new['Status']:
-                    ## Creating Variables to append value
-                    VID = new['ID']
-                    VTkprIndex = new['TkprIndex']
-                    VInitials = new['Initials']  
-                    VFullName =new['FullName']
-                    VFirstName = new['FirstName']
-                    VLastName = new['LastName']
-                    VUser = new['User']
-                    VEmail = new['Email']
-                    VPassword = new['Password']
-                    VClient = new['Client']
-                    VStatus = old['Status'] 
-                    ###############################################
-                    ID.append(VID)
-                    TkprIndex.append(VTkprIndex)  
-                    Initials.append(VInitials)  
-                    FullName.append(VFullName)
-                    FirstName.append(VFirstName)
-                    LastName.append(VLastName)
-                    User.append(VUser)
-                    Email.append(VEmail)
-                    Password.append(VPassword) 
-                    Client.append(VClient)
-                    Status.append(VStatus)               
-                    isnew = 'NO'
-                    break
-                else:
-                    continue
+    for index1, Big in x.iterrows():
+        for index1, short in y.iterrows():
+            if Big['ID'] == short['ID'] and Big['tkprStatus'] != short['Status']:
+                ## Creating Variables to append value
+                VID = short['ID']
+                VTkprIndex = short['Tkpr Index']
+                VInitials = short['Initials']  
+                VFullName =short['FullName']
+                VFirstName = short['FirstName']
+                VLastName = short['Last Name']
+                VUser = short['User']
+                VEmail = short['Email']
+                VPassword = short['Password']
+                VClient = short['Client']
+                VStatus = Big['Status'] 
+                ###############################################
+                ID.append(VID)
+                TkprIndex.append(VTkprIndex)  
+                Initials.append(VInitials)  
+                FullName.append(VFullName)
+                FirstName.append(VFirstName)
+                LastName.append(VLastName)
+                User.append(VUser)
+                Email.append(VEmail)
+                Password.append(VPassword) 
+                Client.append(VClient)
+                Status.append(VStatus)               
+                isnew = 'NO'
+                break
+            
+            elif Big['ID'] == short['ID'] and Big['tkprStatus'] == short['Status']:
+                VID = short['ID']
+                VTkprIndex = short['Tkpr Index']
+                VInitials = short['Initials']  
+                VFullName =short['FullName']
+                VFirstName = short['First Name']
+                VLastName = short['Last Name']
+                VUser = short['User']
+                VEmail = short['Email']
+                VPassword = short['Password']
+                VClient = short['Client']
+                VStatus = short['Status'] 
+                ###############################################
+                ID.append(VID)
+                TkprIndex.append(VTkprIndex)  
+                Initials.append(VInitials)  
+                FullName.append(VFullName)
+                FirstName.append(VFirstName)
+                LastName.append(VLastName)
+                User.append(VUser)
+                Email.append(VEmail)
+                Password.append(VPassword) 
+                Client.append(VClient)
+                Status.append(VStatus)               
+                isnew = 'NO'
+                break
             else:
                 isnew = 'YES'
                 continue
         if isnew == 'YES':
             #################
-            VID = old['ID']
-            VTkprIndex = old['TkprIndex']
-            VInitials = old['BillInitial']  
+            VID = Big['ID']
+            VTkprIndex = Big['TkprIndex']
+            VInitials = Big['BillInitial']  
             VFullName =''
             VFirstName = ''
             VLastName = ''
@@ -75,7 +100,7 @@ def compare(x, y,z):
             VEmail = ''
             VPassword = 'manning12'
             VClient = 'MK'
-            VStatus = old['tkprStatus'] 
+            VStatus = Big['tkprStatus'] 
             #################
             ID.append(VID)
             TkprIndex.append(VTkprIndex)
@@ -88,20 +113,20 @@ def compare(x, y,z):
             LastName.append(VLastName)
             User.append(VUser)
             Email.append(VEmail)
-    newdf = pd.DataFrame({'ID':ID, 'Tkpr Index':TkprIndex, 'Initials': Initials, 'FullName': FullName, 'FirstName':FirstName, 'LastName': LastName, 'User':User, 'Email':Email, 'Password': Password, 'Client': Client,'Status': Status })
-    newdf.to_csv(new_updated_file)
+    shortdf = pd.DataFrame({'ID':ID, 'Tkpr Index':TkprIndex, 'Initials': Initials, 'FullName': FullName, 'FirstName':FirstName, 'LastName': LastName, 'User':User, 'Email':Email, 'Password': Password, 'Client': Client,'Status': Status })
+    shortdf.to_csv(short_updated_file)
 
 def main():
     
     current_path = os.path.dirname(os.path.abspath(__file__))
-    complete_atty_folder = os.path.join(current_path,"Complete_list")
-    knack_list_folder = os.path.join(current_path,"Knack_List")
-    Updatd_Folder = os.path.join(current_path, "Updated_List")
+    complete_atty_fBiger = os.path.join(current_path,"Complete_list")
+    knack_list_fBiger = os.path.join(current_path,"Knack_List")
+    Updatd_FBiger = os.path.join(current_path, "Updated_List")
     
 
 
 
-    compare(dataframe(complete_atty_folder), dataframe(knack_list_folder),Updatd_Folder)
+    compare(dataframe(complete_atty_fBiger), dataframe(knack_list_fBiger),Updatd_FBiger)
     
     
 
